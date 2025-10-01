@@ -22,7 +22,8 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copiamos los archivos estáticos construidos desde la etapa 'builder' al directorio público de Nginx.
-COPY --from=builder /app/dist/frontend /usr/share/nginx/html
+COPY --from=builder /app/dist/frontend/browser /usr/share/nginx/html
 
 # Copiamos nuestro archivo de configuración de Nginx para que soporte las rutas de Angular (Single Page Application).
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+
