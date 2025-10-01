@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Forzar que las notificaciones de Angular Material aparezcan sobre los modales de Bootstrap */
+.cdk-overlay-container {
+  z-index: 2000 !important; /* Bootstrap modal es ~1055 */
+}
+
+.snackbar-success {
+  background-color: #4caf50;
+  color: white;
+}
+
+.snackbar-error {
+  background-color: #f44336;
+  color: white;
+}
+

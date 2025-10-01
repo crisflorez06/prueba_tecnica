@@ -1,0 +1,11 @@
+# Ignorar dependencias locales, se instalarán dentro del contenedor
+/node_modules
+
+# Archivos de build de Angular, se generarán dentro del contenedor
+/dist
+/.angular
+
+# Archivos de configuración del editor y del sistema operativo
+.vscode/
+.idea/
+.DS_Store

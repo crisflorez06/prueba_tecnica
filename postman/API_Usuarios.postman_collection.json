@@ -1,0 +1,250 @@
+{
+  "info": {
+    "name": "API Usuarios",
+    "_postman_id": "d9f3e5a0-0b2b-4c1f-91a3-usuarios",
+    "description": "Colección para probar endpoints del backend PHP (usuarios).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Listar usuarios",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Obtener usuario por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usuarios/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Crear usuario",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombres\": \"Carlos\",\n  \"apellidos\": \"Ramírez\",\n  \"telefono\": \"3012345678\",\n  \"correo\": \"carlos.ramirez@example.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Editar usuario",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombres\": \"Carlos Andrés\",\n  \"apellidos\": \"Ramírez\",\n  \"telefono\": \"3011111111\",\n  \"correo\": \"carlos.andres@example.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/usuarios/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Eliminar usuario",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usuarios/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Buscar usuario por nombre",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usuarios/buscar?nombres=Carlos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios",
+            "buscar"
+          ],
+          "query": [
+            {
+              "key": "nombres",
+              "value": "Carlos"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Buscar usuario por apellido",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usuarios/buscar?apellidos=Ramírez",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios",
+            "buscar"
+          ],
+          "query": [
+            {
+              "key": "apellidos",
+              "value": "Ramírez"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Buscar usuario por teléfono",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usuarios/buscar?telefono=3012345678",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios",
+            "buscar"
+          ],
+          "query": [
+            {
+              "key": "telefono",
+              "value": "3012345678"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Buscar usuario por correo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usuarios/buscar?correo=carlos.ramirez@example.com",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios",
+            "buscar"
+          ],
+          "query": [
+            {
+              "key": "correo",
+              "value": "carlos.ramirez@example.com"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Buscar usuario por nombre y apellido",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usuarios/buscar?nombres=Carlos&apellidos=Ramírez",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios",
+            "buscar"
+          ],
+          "query": [
+            {
+              "key": "nombres",
+              "value": "Carlos"
+            },
+            {
+              "key": "apellidos",
+              "value": "Ramírez"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

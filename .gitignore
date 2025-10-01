@@ -1,0 +1,12 @@
+# Ignorar archivos de dependencias
+/backend/vendor
+/frontend/node_modules
+
+# Ignorar archivos de entorno locales. ¡Nunca subir secretos a Git!
+.env
+**/.env
+
+# Ignorar directorios de IDE y sistema operativo
+.idea/
+.vscode/
+.DS_Store

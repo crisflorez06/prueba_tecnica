@@ -1,0 +1,104 @@
+<!-- modal contenedor -->
+<div class="modal fade" id="crearUsuarioModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+
+    <!-- formulario -->
+    <form [formGroup]="formularioUsuario" (ngSubmit)="guardar()" class="modal-content rounded-4 shadow">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title">{{ usuario ? 'Editar Usuario' : 'Crear Usuario' }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Cerrar"
+          data-bs-custom-class="custom-tooltip"
+        ></button>
+      </div>
+      <div class="modal-body p-4 pb-0">
+
+        <!-- nombres -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="nombres" placeholder="Nombres"
+                 formControlName="nombres"
+                 [ngClass]="{ 'is-invalid': formularioUsuario.get('nombres')?.invalid && formularioUsuario.get('nombres')?.touched }">
+          <label for="nombres">Nombres</label>
+          <div *ngIf="formularioUsuario.get('nombres')?.hasError('required')" class="invalid-feedback">
+            Nombres es requerido.
+          </div>
+          <div *ngIf="formularioUsuario.get('nombres')?.hasError('minlength')" class="invalid-feedback">
+            Debe tener al menos 3 caracteres.
+          </div>
+          <div *ngIf="formularioUsuario.get('nombres')?.hasError('pattern')" class="invalid-feedback">
+            Solo se permiten letras y espacios.
+          </div>
+        </div>
+
+        <!--apellidos -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="apellidos" placeholder="Apellidos"
+                 formControlName="apellidos"
+                 [ngClass]="{ 'is-invalid': formularioUsuario.get('apellidos')?.invalid && formularioUsuario.get('apellidos')?.touched }">
+          <label for="apellidos">Apellidos</label>
+          <div *ngIf="formularioUsuario.get('apellidos')?.hasError('required')" class="invalid-feedback">
+            Apellidos es requerido.
+          </div>
+          <div *ngIf="formularioUsuario.get('apellidos')?.hasError('minlength')" class="invalid-feedback">
+            Debe tener al menos 3 caracteres.
+          </div>
+          <div *ngIf="formularioUsuario.get('apellidos')?.hasError('pattern')" class="invalid-feedback">
+            Solo se permiten letras y espacios.
+          </div>
+        </div>
+
+        <!--teléfono -->
+        <div class="form-floating mb-3">
+          <input type="text" inputmode="tel" class="form-control" id="telefono" placeholder="Teléfono"
+                 formControlName="telefono"
+                 [ngClass]="{ 'is-invalid': formularioUsuario.get('telefono')?.invalid && formularioUsuario.get('telefono')?.touched }">
+          <label for="telefono">Teléfono</label>
+          <div *ngIf="formularioUsuario.get('telefono')?.hasError('required')" class="invalid-feedback">
+            Teléfono es requerido.
+          </div>
+          <div *ngIf="formularioUsuario.get('telefono')?.hasError('pattern')" class="invalid-feedback">
+            Solo se permiten números.
+          </div>
+          <div *ngIf="formularioUsuario.get('telefono')?.hasError('minlength')" class="invalid-feedback">
+            Debe tener al menos 7 dígitos.
+          </div>
+          <div *ngIf="formularioUsuario.get('telefono')?.hasError('maxlength')" class="invalid-feedback">
+            No debe tener más de 15 dígitos.
+          </div>
+        </div>
+
+        <!--correo -->
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="correo" placeholder="correo@ejemplo.com"
+                 formControlName="correo"
+                 [ngClass]="{ 'is-invalid': formularioUsuario.get('correo')?.invalid && formularioUsuario.get('correo')?.touched }">
+          <label for="correo">Correo Electrónico</label>
+          <div *ngIf="formularioUsuario.get('correo')?.hasError('required')" class="invalid-feedback">
+            Correo es requerido.
+          </div>
+          <div *ngIf="formularioUsuario.get('correo')?.hasError('email')" class="invalid-feedback">
+            Formato de correo inválido.
+          </div>
+          <div *ngIf="formularioUsuario.get('correo')?.hasError('serverError')" class="invalid-feedback">
+            {{ formularioUsuario.get('correo')?.getError('serverError') }}
+          </div>
+        </div>
+      </div>
+
+      <!-- botones -->
+      <div class="modal-footer border-top-0">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!formularioUsuario.valid">
+          {{ usuario ? 'Actualizar' : 'Crear' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

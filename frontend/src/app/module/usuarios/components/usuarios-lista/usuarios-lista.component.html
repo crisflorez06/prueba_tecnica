@@ -1,0 +1,133 @@
+<app-loading *ngIf="cargando"></app-loading>
+
+<div class="container mt-4">
+  <!-- Encabezado -->
+  <div class="row align-items-center mb-4">
+    <!-- Columna izquierda -->
+    <div class="col-12 col-md-6 text-center text-md-start">
+      <h1 class="mb-0">Usuarios</h1>
+      <h5 class="text-muted fw-normal">Prueba técnica</h5>
+    </div>
+
+    <!-- Columna derecha -->
+    <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end mt-3 mt-md-0">
+      <button
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#crearUsuarioModal"
+      >
+        <i class="bi bi-person-plus-fill fs-4"></i>
+        <strong> Crear usuario</strong>
+      </button>
+    </div>
+  </div>
+
+  <!-- Formulario de búsqueda -->
+  <div class="card bg-light border-light rounded-3 shadow-sm mb-4">
+    <div class="card-body">
+      <form [formGroup]="formularioBuscar" (ngSubmit)="buscar()">
+        <div class="row g-2 align-items-center">
+          <div class="col-12 col-md">
+            <input type="text" class="form-control" formControlName="nombres" placeholder="Juan">
+          </div>
+          <div class="col-12 col-md">
+            <input type="text" class="form-control" formControlName="apellidos" placeholder="Pérez">
+          </div>
+          <div class="col-12 col-md">
+            <input type="text" class="form-control" formControlName="telefono" placeholder="3001234567">
+          </div>
+          <div class="col-12 col-md">
+            <input type="email" class="form-control" formControlName="correo" placeholder="usuario@correo.com">
+          </div>
+          <div class="col-12 col-md-auto">
+            <button type="submit" class="btn btn-primary w-100 w-md-auto">Buscar</button>
+          </div>
+          <div class="col-12 col-md-auto">
+            <button type="button" (click)="limpiarBusqueda()" class="btn btn-secondary w-100 w-md-auto">Limpiar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tabla -->
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Email</th>
+          <th>Tel</th>
+          <th>Creado</th>
+          <th>Modificado</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of usuarios">
+          <td>{{ u.nombres }}</td>
+          <td>{{ u.apellidos }}</td>
+          <td>{{ u.correo }}</td>
+          <td>{{ u.telefono }}</td>
+          <td>{{ u.fecha_registro | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ u.fecha_modificacion | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td class="text-center">
+            <button class="btn btn-primary btn-sm rounded-circle me-1 btn-circle-sm"
+                    (click)="editar(u)"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Editar"
+                    data-bs-custom-class="custom-tooltip">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-danger btn-sm rounded-circle btn-circle-sm"
+                    (click)="eliminar(u)"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Eliminar"
+                    data-bs-custom-class="custom-tooltip">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal formulario usuario -->
+<app-usuarios-formulario
+  [usuario]="usuarioSeleccionado"
+  (movimientoUsuario)="cargarUsuarios()"
+  (modalClosed)="modalCerrado()">
+</app-usuarios-formulario>
+
+<!-- Modal confirmar eliminación -->
+<div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title">Confirmar Eliminación</h5>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Cerrar"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Cerrar"
+                data-bs-custom-class="custom-tooltip">
+        </button>
+      </div>
+      <div class="modal-body py-0">
+        <p>¿Estás seguro de que deseas eliminar a
+          <strong>{{ usuarioAEliminar?.nombres }} {{ usuarioAEliminar?.apellidos }}</strong>?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="confirmarEliminacion()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+# Imagen base: PHP 8.2 con Apache
+FROM php:8.2-apache
+
+# 1. Instalar dependencias del sistema necesarias para PHP y utilidades
+RUN apt-get update && apt-get install -y \
+    git \                
+    unzip \              
+    libzip-dev \         
+    && rm -rf /var/lib/apt/lists/*  # Limpiar caché de apt para reducir tamaño de la imagen
+
+# 2. Instalar extensiones de PHP
+RUN docker-php-ext-install pdo_mysql mysqli zip
+
+# 3. Configurar Apache
+RUN a2enmod rewrite   # Habilitar el módulo de reescritura de URLs
+# Modificar la configuración de Apache para permitir el uso de .htaccess en /var/www/html
+RUN sed -i '/<Directory \/var\/www\/html>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+
+# 4. Instalar Composer copiándolo desde la imagen oficial de Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# 5. Establecer directorio de trabajo en el contenedor
+WORKDIR /var/www/html
+
+# 6. Copiar archivos de configuración de Composer e instalar dependencias del proyecto
+COPY composer.json composer.lock* ./
+RUN composer install --no-interaction --no-plugins --no-scripts --prefer-dist
+
+# 7. Copiar el código de la aplicación al contenedor
+COPY . .
+
+# 8. Asignar permisos al usuario de Apache (www-data)
+RUN chown -R www-data:www-data /var/www/html
